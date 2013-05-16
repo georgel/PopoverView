@@ -827,7 +827,7 @@
     NSLog(@"swipe speed:%f", usersSwipeSpeed);
     if (sender.state == UIGestureRecognizerStateEnded) {
         [sender cancelsTouchesInView]; // you may or may not need this - check documentation if unsure
-        if (delegate && [delegate respondsToSelector:@selector(popOverView:didPanToDistance:)]) {
+        if (delegate && [delegate respondsToSelector:@selector(popoverView:didPanToDistance:)]) {
             [delegate popoverView:self didPanToDistance:distance];
         }
     }

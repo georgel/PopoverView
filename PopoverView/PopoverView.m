@@ -796,7 +796,9 @@
     if (!found) {
         [self dismiss:YES];
         if (delegate && [delegate respondsToSelector:@selector(popoverView:didTapAtPoint:)]) {
-            [delegate popoverView:self didTapAtPoint:point];
+            CGPoint viewPoint = [tap locationInView:parentView];
+
+            [delegate popoverView:self didTapAtPoint:viewPoint];
         }
     }
     

@@ -113,6 +113,16 @@
     [pv retain];
 }
 
+- (void)popoverView:(PopoverView *)popoverView didPanToDistance:(CGPoint)distance {
+    NSLog(@"Delegate triggered");
+}
+
+
+- (void)popoverView:(PopoverView *)popoverView didTapAtPoint:(CGPoint)point {
+    NSLog(@"Delegate  tap triggered");
+}
+
+
 #pragma mark - DEMO - UITableView Delegate Methods
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

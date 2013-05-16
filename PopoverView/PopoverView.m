@@ -795,7 +795,7 @@
     
     if (!found) {
         [self dismiss:YES];
-        if (delegate && [delegate respondsToSelector:@selector(popOverView:didTapAtPoint:)]) {
+        if (delegate && [delegate respondsToSelector:@selector(popoverView:didTapAtPoint:)]) {
             [delegate popoverView:self didTapAtPoint:point];
         }
     }
@@ -816,11 +816,7 @@
 }
 
 -(void)panned:(UIPanGestureRecognizer *)sender
-{
-    if (sender.state == UIGestureRecognizerStateBegan) {
-        [self dismiss:YES];
-    }
-    
+{    
     CGPoint distance = [sender translationInView:self]; // get distance of pan/swipe in the view in which the gesture recognizer was added
     CGPoint velocity = [sender velocityInView:self]; // get velocity of pan/swipe in the view in which the gesture recognizer was added
     float usersSwipeSpeed = abs(velocity.x); // use this if you need to move an object at a speed that matches the users swipe speed
@@ -830,6 +826,7 @@
         if (delegate && [delegate respondsToSelector:@selector(popoverView:didPanToDistance:)]) {
             [delegate popoverView:self didPanToDistance:distance];
         }
+        [self dismiss:YES];
     }
 }
 

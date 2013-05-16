@@ -596,7 +596,6 @@
     [tap RELEASE];
     
     UIPanGestureRecognizer *panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(tapped:)];
-    [panRecognizer setDelegate:self];
     panRecognizer.cancelsTouchesInView = NO;
     [self addGestureRecognizer:panRecognizer]; // add to the view you want to detect swipe on
 

@@ -71,6 +71,11 @@
 //Delegate receives this call once the popover has begun the dismissal animation
 - (void)popoverViewDidDismiss:(PopoverView *)popoverView;
 
+//Delegate receive this call when a tap is outside the popover to enable delegate to handle the tap
+- (void)popoverView:(PopoverView *)popoverView didTapAtPoint:(CGPoint)point;
+
+- (void)popoverView:(PopoverView *)popoverView didPanToDistance:(CGPoint)distance;
+
 @end
 
 @interface PopoverView : UIView {

@@ -595,7 +595,7 @@
     [self addGestureRecognizer:tap];
     [tap RELEASE];
     
-    UIPanGestureRecognizer *panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(tapped:)];
+    UIPanGestureRecognizer *panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panned:)];
     panRecognizer.cancelsTouchesInView = NO;
     [self addGestureRecognizer:panRecognizer]; // add to the view you want to detect swipe on
 
@@ -795,6 +795,9 @@
     
     if (!found) {
         [self dismiss:YES];
+        if (delegate && [delegate respondsToSelector:@selector(popOverView:didTapAtPoint:)]) {
+            [delegate popoverView:self didTapAtPoint:point];
+        }
     }
     
 }
@@ -811,6 +814,25 @@
         [delegate popoverView:self didSelectItemAtIndex:index];
     }
 }
+
+-(void)panned:(UIPanGestureRecognizer *)sender
+{
+    if (sender.state == UIGestureRecognizerStateBegan) {
+        [self dismiss:YES];
+    }
+    
+    CGPoint distance = [sender translationInView:self]; // get distance of pan/swipe in the view in which the gesture recognizer was added
+    CGPoint velocity = [sender velocityInView:self]; // get velocity of pan/swipe in the view in which the gesture recognizer was added
+    float usersSwipeSpeed = abs(velocity.x); // use this if you need to move an object at a speed that matches the users swipe speed
+    NSLog(@"swipe speed:%f", usersSwipeSpeed);
+    if (sender.state == UIGestureRecognizerStateEnded) {
+        [sender cancelsTouchesInView]; // you may or may not need this - check documentation if unsure
+        if (delegate && [delegate respondsToSelector:@selector(popOverView:didPanToDistance:)]) {
+            [delegate popoverView:self didPanToDistance:distance];
+        }
+    }
+}
+
 
 - (void)dismiss
 {

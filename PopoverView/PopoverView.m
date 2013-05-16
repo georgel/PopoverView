@@ -594,6 +594,11 @@
     tap.cancelsTouchesInView = NO; // Allow touches through to a UITableView or other touchable view, as suggested by Dimajp.
     [self addGestureRecognizer:tap];
     [tap RELEASE];
+    
+    UIPanGestureRecognizer *panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(tapped:)];
+    [panRecognizer setDelegate:self];
+    panRecognizer.cancelsTouchesInView = NO;
+    [self addGestureRecognizer:panRecognizer]; // add to the view you want to detect swipe on
 
     self.userInteractionEnabled = YES;
 }
